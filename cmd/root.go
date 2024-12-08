@@ -34,6 +34,9 @@ var cfgFile string
 
 var rootCmd = &cobra.Command{
 	Use: "cobra-viper-config",
+	PreRun: func(cmd *cobra.Command, args []string) {
+		viper.BindPFlag("name", cmd.Flags().Lookup("name"))
+	},
 	Run: func(cmd *cobra.Command, args []string) {
 		name := viper.GetString("name")
 		fmt.Println("Hello:", name)
@@ -52,8 +55,6 @@ func init() {
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.cobra-viper-config.yaml)")
 	rootCmd.Flags().String("name", "name", "name")
-
-	viper.BindPFlag("name", rootCmd.Flags().Lookup("name"))
 }
 
 func initConfig() {

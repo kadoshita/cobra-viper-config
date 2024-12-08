@@ -31,6 +31,9 @@ import (
 // subCmd represents the sub command
 var subCmd = &cobra.Command{
 	Use: "sub",
+	PreRun: func(cmd *cobra.Command, args []string) {
+		viper.BindPFlag("name", cmd.Flags().Lookup("name"))
+	},
 	Run: func(cmd *cobra.Command, args []string) {
 		name := viper.GetString("name")
 		fmt.Println("Hello sub:", name)
@@ -41,6 +44,4 @@ func init() {
 	rootCmd.AddCommand(subCmd)
 
 	subCmd.Flags().String("name", "name", "name")
-
-	viper.BindPFlag("name", subCmd.Flags().Lookup("name"))
 }
