@@ -1,0 +1,2 @@
+# cobra-viper-config
+CobraとViperで設定がうまく読み込まれなかった挙動の調査用リポジトリ
